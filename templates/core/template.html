@@ -1,0 +1,336 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="author" content="thisrupt" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
+      rel="stylesheet"
+    /> -->
+
+    <title>{% block title %}{% endblock title %}</title>
+
+    <!-- Bootstrap core CSS -->
+    <link
+      href="{% static 'vendors/marketplace/bootstrap/css/bootstrap.min.css' %}"
+      rel="stylesheet"
+    />
+
+    <!-- Additional CSS Files -->
+    <link
+      rel="stylesheet"
+      href="{% static 'css/marketplace/fontawesome.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'css/marketplace/templatemo-liberty-market.css' %}"
+    />
+    <link rel="stylesheet" href="{% static 'css/marketplace/owl.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/marketplace/animate.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/login/style.css' %}" />
+    {% block styles %}{% endblock styles %}
+  </head>
+
+  <body>
+    <!-- ***** Preloader Start ***** -->
+    <div id="js-preloader" class="js-preloader">
+      <div class="preloader-inner">
+        <span class="dot"></span>
+        <div class="dots">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </div>
+    <!-- ***** Preloader End ***** -->
+
+    <!-- ***** Header Area Start ***** -->
+    <header class="header-area header-sticky">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <nav class="main-nav">
+              <!-- ***** Logo Start ***** -->
+              <a href="index.html" class="logo">
+                <img src="{% static 'images/marketplace/logo.png' %}" alt="" />
+              </a>
+              <!-- ***** Logo End ***** -->
+              <!-- ***** Menu Start ***** -->
+              <ul class="nav">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="explore.html">Explore</a></li>
+
+                {% if user.is_anonymous %}
+                <li><a class="open-signup">Join Us</a></li>
+                <li><a class="modal-button">login</a></li>
+                {% else %}
+                <li><a href="" class="">Dashboard</a></li>
+                {% endif %}
+              </ul>
+              <a class="menu-trigger">
+                <span>Menu</span>
+              </a>
+              <!-- ***** Menu End ***** -->
+            </nav>
+          </div>
+        </div>
+      </div>
+    </header>
+    <!-- ***** Header Area End ***** -->
+
+    <!--  *****  Authentication Modal  *****  -->
+    <div class="modal">
+      <div class="modal-container">
+        <div class="modal-left">
+
+          <form id="loginForm"  method="post">
+            {% csrf_token %}
+            <h1 class="modal-title">Welcome!</h1>
+            <p class="modal-desc text-dark">
+              Fanny pack hexagon food truck, street art waistcoat kitsch.
+            </p>
+            <div class="input-block">
+              <label for="email" class="input-label">Email</label>
+              <input type="email" name="email" id="email" placeholder="Email" />
+            </div>
+            <div class="input-block">
+              <label for="password" class="input-label">Password</label>
+              <input
+                type="password"
+                name="password"
+                id="password"
+                placeholder="Password"
+              />
+            </div>
+            <div class="modal-buttons">
+              <a href="" class="">Forgot your password?</a>
+              <button class="input-button">Login</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="modal-right">
+          <img
+            src="https://images.unsplash.com/photo-1512486130939-2c4f79935e4f?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=dfd2ec5a01006fd8c4d7592a381d3776&auto=format&fit=crop&w=1000&q=80"
+            alt=""
+          />
+        </div>
+        <button class="icon-button close-button">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
+            <path
+              d="M 25 3 C 12.86158 3 3 12.86158 3 25 C 3 37.13842 12.86158 47 25 47 C 37.13842 47 47 37.13842 47 25 C 47 12.86158 37.13842 3 25 3 z M 25 5 C 36.05754 5 45 13.94246 45 25 C 45 36.05754 36.05754 45 25 45 C 13.94246 45 5 36.05754 5 25 C 5 13.94246 13.94246 5 25 5 z M 16.990234 15.990234 A 1.0001 1.0001 0 0 0 16.292969 17.707031 L 23.585938 25 L 16.292969 32.292969 A 1.0001 1.0001 0 1 0 17.707031 33.707031 L 25 26.414062 L 32.292969 33.707031 A 1.0001 1.0001 0 1 0 33.707031 32.292969 L 26.414062 25 L 33.707031 17.707031 A 1.0001 1.0001 0 0 0 32.980469 15.990234 A 1.0001 1.0001 0 0 0 32.292969 16.292969 L 25 23.585938 L 17.707031 16.292969 A 1.0001 1.0001 0 0 0 16.990234 15.990234 z"
+            ></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <!-- End of Login Modal  -->
+
+    <!-- Signup Modal -->
+    <div class="signup-modal">
+      <div class="modal-container">
+        <div class="modal-left">
+          <h1 class="modal-title">Be The First!</h1>
+          <p class="modal-desc text-dark">
+            Fanny pack hexagon food truck, street art waistcoat kitsch.
+          </p>
+
+          <form method="post" id="signupForm">
+            {% csrf_token %}
+            <div class="row">
+              <div class="col-sm-12 col-md-6">
+                <div class="input-block">
+                  <label for="first_name" class="input-label">FirstName</label>
+                  <input
+                    type="text"
+                    name="first_name"
+                    id="first_name"
+                    placeholder="John"
+                  />
+                </div>
+              </div>
+              <div class="col-sm-12 col-md-6">
+                <div class="input-block">
+                  <label for="last_name" class="input-label">LastName</label>
+                  <input
+                    type="text"
+                    name="last_name"
+                    id="last_name"
+                    placeholder="Doe"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <!-- Email -->
+            <div class="input-block">
+              <label for="email" class="input-label">Email</label>
+              <input
+                type="email"
+                name="email"
+                id="email"
+                placeholder="Email"
+                required
+              />
+            </div>
+
+            <!-- Username -->
+            <!-- <div class="input-block">
+              <label for="username" class="input-label">username</label>
+              <input
+                type="username"
+                name="username"
+                id="username"
+                placeholder="username"
+                required
+              />
+            </div> -->
+
+            <div class="row">
+              <!-- PHone -->
+              <div class="col-sm-12 col-md-6">
+                <div class="input-block">
+                  <label for="phone" class="input-label">Phone</label>
+                  <input
+                    type="tel"
+                    name="phone"
+                    id="phone"
+                    required
+                    placeholder="+1234567890"
+                  />
+                </div>
+              </div>
+
+              <!-- Account -->
+              <div class="col-sm-12 col-md-6">
+                <div class="input-block">
+                  <label for="account_category" class="input-label"
+                    >Account Type</label
+                  >
+                  <select name="account_category" id="account_category">
+                    <option value="regular">Regular</option>
+                    <option value="creator">Creator</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- Country & State & Zipcode -->
+            <div class="row">
+              <!-- Country -->
+              <div class="col-sm-12 col-md-6">
+                <div class="input-block">
+                  <label for="country" class="input-label">Country</label>
+                  <input
+                    type="text"
+                    name="country"
+                    id="country"
+                    placeholder="Enter your country"
+                    required
+                  />
+                </div>
+              </div>
+
+              <!-- Zipcode -->
+              <div class="col-sm-12 col-md-6">
+                <div class="input-block">
+                  <label for="zipcode" class="input-label">Zipcode</label>
+                  <input
+                    type="text"
+                    name="zipcode"
+                    id="zipcode"
+                    required
+                    placeholder="Enter your zipcode"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <!-- Password & Confirm Password -->
+            <div class="row">
+              <div class="col-sm-12 col-md-6">
+                <div class="input-block">
+                  <label for="password" class="input-label">Password</label>
+                  <input
+                    type="password"
+                    name="password1"
+                    id="password"
+                    placeholder="Password"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="col-sm-12 col-md-6">
+                <div class="input-block">
+                  <label for="password" class="input-label"
+                    >Confirm Password</label
+                  >
+                  <input
+                    type="password"
+                    name="password2"
+                    id="password"
+                    required
+                    placeholder="Password"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="modal-buttons">
+              <button class="input-button">Sign up</button>
+            </div>
+          </form>
+        </div>
+
+        <button class="icon-button signup-close-button">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
+            <path
+              d="M 25 3 C 12.86158 3 3 12.86158 3 25 C 3 37.13842 12.86158 47 25 47 C 37.13842 47 47 37.13842 47 25 C 47 12.86158 37.13842 3 25 3 z M 25 5 C 36.05754 5 45 13.94246 45 25 C 45 36.05754 36.05754 45 25 45 C 13.94246 45 5 36.05754 5 25 C 5 13.94246 13.94246 5 25 5 z M 16.990234 15.990234 A 1.0001 1.0001 0 0 0 16.292969 17.707031 L 23.585938 25 L 16.292969 32.292969 A 1.0001 1.0001 0 1 0 17.707031 33.707031 L 25 26.414062 L 32.292969 33.707031 A 1.0001 1.0001 0 1 0 33.707031 32.292969 L 26.414062 25 L 33.707031 17.707031 A 1.0001 1.0001 0 0 0 32.980469 15.990234 A 1.0001 1.0001 0 0 0 32.292969 16.292969 L 25 23.585938 L 17.707031 16.292969 A 1.0001 1.0001 0 0 0 16.990234 15.990234 z"
+            ></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <!--  *****  End ofAuthentication Modal  *****  -->
+
+    {% block content %}{% endblock content %}
+
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <p>
+              Copyright ©
+              <script>
+                document.write(new Date().getFullYear());
+              </script>
+              <a href="#">Shoouts</a> Audio Marketplace. &nbsp;&nbsp;
+            </p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Scripts -->
+    <!-- Bootstrap core JavaScript -->
+    <script src="{% static 'vendors/marketplace/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'vendors/marketplace/bootstrap/js/bootstrap.min.js' %}"></script>
+
+    <script src="{% static 'js/marketplace/isotope.min.js' %}"></script>
+    <script src="{% static 'js/marketplace/owl-carousel.js' %}"></script>
+
+    <script src="{% static 'js/marketplace/tabs.js' %}"></script>
+    <script src="{% static 'js/marketplace/popup.js' %}"></script>
+    <script src="{% static 'js/marketplace/custom.js' %}"></script>
+    <script src="{% static 'js/login/script.js' %}"></script>
+    <script src="{% static 'js/custom.js' %}"></script>
+    {% block script %}{% endblock script %}
+  </body>
+</html>

@@ -1,3 +1,4 @@
+from uuid import uuid4
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django_countries.fields import CountryField
@@ -7,7 +8,7 @@ from django_countries.fields import CountryField
 class User(AbstractUser):
     ACCOUNT_CATEGORY = [
         ('creator', 'creator'),
-        ('client', 'client'),
+        ('regular', 'regular'),
     ]
 
     ACCOUNT_TAG =[
@@ -18,10 +19,12 @@ class User(AbstractUser):
         ('manager', 'manager'),
     ]
 
+    id = models.UUIDField(primary_key=True, unique=True, default=uuid4, editable=False)
     email = models.EmailField(unique=True)
     phone = models.CharField(unique=True, max_length=20)
-    country = CountryField()
-    sate = models.CharField(max_length=30)
+    # country = CountryField()
+    country = models.CharField(max_length=250)
+    username = models.TextField(unique=True)
     city = models.CharField(max_length=40)
     zipcode = models.CharField(max_length=40)
     account_category = models.CharField(max_length=20, choices=ACCOUNT_CATEGORY)

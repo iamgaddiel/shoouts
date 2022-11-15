@@ -34,7 +34,7 @@ with open(BASE_DIR / 'env/env.json', 'r') as env_file:
 SECRET_KEY = env.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -51,9 +51,11 @@ INSTALLED_APPS = [
 
     # Apps
     'core',
+    'api',
 
     # Third Party
     'django_countries',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -64,6 +66,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
 ]
 
 ROOT_URLCONF = 'shouts.urls'
@@ -137,7 +140,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
     BASE_DIR / 'static'
@@ -145,6 +148,7 @@ STATICFILES_DIRS = [
 
 
 MEDIA_ROOT = BASE_DIR / 'media'
+
 MEDIA_URL = '/media/'
 
 
@@ -158,3 +162,30 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 AUTH_USER_MODEL = 'core.user'
+
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:8000",
+    "http://127.0.0.1:9000",
+]
+
+CORS_ALLOW_METHODS = [
+    "DELETE",
+    "GET",
+    "OPTIONS",
+    "PATCH",
+    "POST",
+    "PUT",
+]
+
+# CORS_ALLOW_HEADERS = [
+#     "accept",
+#     "accept-encoding",
+#     "authorization",
+#     "content-type",
+#     "dnt",
+#     "origin",
+#     "user-agent",
+#     "x-csrftoken",
+#     "x-requested-with",
+# ]
